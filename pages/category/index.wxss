@@ -23,6 +23,23 @@
   position:relative;
 }
 
+.active{
+    color: red;
+    background:#fff;
+}
+
+.active:before{
+    display: block;
+    content:  "";
+    width: 2px;
+    height: 20px;
+    background: red;
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translateY(-8px)
+}
+
 /* 右边的内容 */
 .right{
     flex: 1;

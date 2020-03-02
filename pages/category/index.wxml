@@ -8,10 +8,13 @@
     <view class="left">
       <!-- 菜单的子选项 -->
       <block wx:for="{{list}}" wx:key="index">
-        <view class="menu-item">{{item.cat_name}}</view>
+        <view class="menu-item {{ current === index ? 'active' : '' }}"
+        bindtap="handleClick"
+        data-index="{{index}}">
+        {{item.cat_name}}</view>
       </block>
     </view>
-    
+
     <!-- 右边内容 -->
     <view class="right">
       <!-- 子分类 -->
