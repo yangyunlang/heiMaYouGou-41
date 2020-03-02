@@ -1,1 +1,65 @@
-/* pages/category/index.wxss */
+/* 内容的高度 */
+.content{
+  position:fixed; 
+  top:100rpx;
+  bottom:0;
+  width:750rpx;
+  display:flex;
+  justify-content: space-between;
+}
+
+/* 左边菜单 */
+.left{
+  width:200rpx;
+  height:100%;
+  background:#eee;
+  overflow:auto;
+  flex-shrink:0;
+}
+.left .menu-item{
+  text-align:center;
+  padding:20rpx 0;
+  border-bottom:1px solid #ddd;
+  position:relative;
+}
+
+/* 右边的内容 */
+.right{
+    flex: 1;
+    overflow: auto;
+}
+
+.category-title{
+    text-align: center;
+    padding: 20rpx;
+    color: #ccc;
+}
+
+.category-title text{
+    color:#000;
+    margin: 0 20rpx;
+}
+
+.product-list{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+}
+
+.product-list navigator{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width:33.33%;
+    overflow: hidden;
+    font-size: 12px;
+    padding: 10rpx;
+    box-sizing: border-box;
+}
+
+.product-list navigator image{
+    width:100%;
+}
