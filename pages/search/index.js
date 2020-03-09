@@ -7,35 +7,45 @@ Page({
    */
   data: {
     //输入框的值
-    inputValue:"",
+    inputValue: "",
     //上次输入框的值
-    lastValue:"",
+    lastValue: "",
     //搜索建议
-    recommend:[],
+    recommend: [],
     //设置一个开关，必须等待上一次的请求返回
-    loading:false
+    loading: false,
+    //本地的存储历史记录
+    history: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //获取本地的存储
+    let arr = wx.getStorageSync("history");
+    //如果本地没有数据或者arr不是一个数组
+    if (!Array.isArray(arr)) {
+      arr = [];
+    }
+    this.setData({
+      history: arr
+    })
   },
 
   //监听输入框的输入事件
-  handleInput(e){
+  handleInput(e) {
     //value是输入框的值
     const { value } = e.detail;
     this.setData({
-      inputValue:value
+      inputValue: value,
     });
 
     //如果value有值才发起请求
-    if(!value) {
+    if (!value) {
       //把搜索建议的数组清空
       this.setData({
-        recommend:[]
+        recommend: []
       });
       return;
     }
@@ -45,14 +55,14 @@ Page({
   },
 
   //请求搜索建议
-  getRecommend(){
+  getRecommend() {
     //必须保证进门时候灯是关着的
-    if(this.data.loading == false){
+    if (this.data.loading == false) {
       //进门后开灯
       this.setData({
-        loading:true,
+        loading: true,
         //记录当前搜索的输入框的值
-        lastValue:this.data.inputValue
+        lastValue: this.data.inputValue
       })
 
       // 请求搜索建议
@@ -78,11 +88,55 @@ Page({
   },
 
   //点击取消按钮时候触发的事件
-  handleCancel(){
+  handleCancel() {
     //清空输入框的值和搜搜建议的列表
     this.setData({
-      inputValue:"",
-      recommend:""
+      inputValue: "",
+      recommend: []
+    })
+  },
+
+  // 输入框失去焦点时候触发
+  handleBlur() {
+    this.setData({
+      recommend: []
+    })
+  },
+
+  // 清空本地的存储
+  handleClear() {
+    // 清空data中的数据
+    this.setData({
+      history: []
+    })
+
+    // 清空本地的历史数据
+    wx.setStorageSync('history', [])
+  },
+
+  // 按下回车按钮时候触发的事件
+  handleEnter() {
+    // 文档地址：https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html
+    // 每次存储之前先把本地的数据先获取回来
+    let arr = wx.getStorageSync("history");
+
+    // 如果本地没有数据或者arr不是一个数组
+    if (!Array.isArray(arr)) {
+      arr = [];
+    }
+
+    // 添加到数组的第一位
+    arr.unshift(this.data.inputValue);
+
+    // 数组去重
+    arr = [...new Set(arr)]
+
+    // 把搜索关键字保存到本地
+    wx.setStorageSync('history', arr)
+
+    // 跳转到商品搜索列表页
+    wx.redirectTo({
+      url: "/pages/goods_list/index?keyword=" + this.data.inputValue
     })
   }
 })
