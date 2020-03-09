@@ -1,5 +1,5 @@
 <!-- 头部的搜索栏 -->
-<navigator url="/pages/goods_list/index?keyword={{subItem.cat_name}}">
+<navigator url="/pages/search/index">
     <view class="search background">
         <view class="search-input {{align}}">
             <icon type="search" size="20"/>
