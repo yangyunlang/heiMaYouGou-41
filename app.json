@@ -5,6 +5,7 @@
     "pages/cart/index",
     "pages/personal/index",
     "pages/goods_list/index",
+    "pages/goosd_detail/index",
     "pages/search/index"
   ],
   "window": {
